@@ -74,15 +74,10 @@ npm run preview # 本地预览构建产物
 | `screenshots/about-footer.png` | 关于画廊 + 页脚 | 滚到页面底部，About 段落与透明页脚（联系方式 + 版权行）一起截 |
 | `screenshots/mobile.png` | 移动端整页 | 浏览器 DevTools 设备模拟 375px，整页截长图 |
 
-![开机动画 · 金丝入殿](screenshots/boot-animation.gif)
+本人因为偷懒所以没有做以上的gif和png，实在报一丝
 
-![首页 Hero · 左文右殿](screenshots/hero.png)
+<img width="480" height="287" alt="屏幕录制 2026-10-17 142603" src="https://github.com/user-attachments/assets/8d7f2104-8b72-428f-9928-e27fda1ab679" />
 
-![目的地卡片](screenshots/highlights.png)
-
-![关于画廊与页脚](screenshots/about-footer.png)
-
-![移动端 375px](screenshots/mobile.png)
 
 ## 设计说明
 
