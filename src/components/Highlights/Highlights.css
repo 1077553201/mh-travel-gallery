@@ -1,0 +1,158 @@
+/* 移动优先：基础样式 = 手机（< 640px） */
+.highlights {
+  padding-block: var(--space-16);
+  padding-inline: var(--page-pad);
+  border-top: 1px solid var(--color-line);
+}
+
+.highlights__label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.highlights__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-title);
+  margin-bottom: var(--space-8);
+}
+
+/* 手机：单列 */
+.highlights__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+/* 玻璃拟态卡片：半透明底 + 模糊 + 白描边，叠在彩色光斑上。
+   flex 列布局 + 高度 100%，配合网格 align-items: stretch，
+   保证同一行卡片（含右下角湖北卡）死死对齐、绝不高低错位 */
+.city-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-glass);
+  transition:
+    transform var(--dur-hover) var(--ease-smooth),
+    box-shadow var(--dur-hover) var(--ease-smooth),
+    border-color var(--dur-hover) var(--ease-smooth);
+}
+
+/* 图片外层容器：严格约束图片在卡片内部（修图片撑破卡片 Bug 的关键） */
+.city-card__image {
+  position: relative; /* 成为 <img absolute> 的包含块，图片绝不盖住下方文字 */
+  height: 180px;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.city-card__image-fill {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 用户照片：铺满图区、object-fit 规矩内嵌、Hover 平滑放大看全貌 */
+.city-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 动效 1：键盘 focus-visible 任何设备都生效 */
+.city-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 36px color-mix(in srgb, var(--card-color) 35%, transparent);
+  border-color: var(--card-color);
+}
+
+.city-card:focus-visible .city-card__image-fill,
+.city-card:focus-visible .city-card__photo {
+  transform: scale(1.08);
+}
+
+/* hover 抬升/发光/放大只在指针设备启用，触摸设备不做强 hover */
+@media (hover: hover) {
+  .city-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      var(--shadow-hover),
+      0 0 36px color-mix(in srgb, var(--card-color) 35%, transparent);
+    border-color: var(--card-color);
+  }
+
+  .city-card:hover .city-card__image-fill,
+  .city-card:hover .city-card__photo {
+    transform: scale(1.08);
+  }
+}
+
+.city-card__name {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-title);
+  margin: var(--space-6) var(--space-6) var(--space-2);
+}
+
+.city-card__slogan {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+  margin: 0 var(--space-6) var(--space-6);
+  flex-grow: 1; /* 文字区吃满剩余高度：同行卡片底边严格对齐 */
+}
+
+/* 平板（640px–1023px）：2 列 */
+@media (min-width: 640px) {
+  .highlights__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .city-card__image {
+    height: 200px;
+  }
+}
+
+/* 桌面（≥ 1024px）：3 列 + 第 4、5 张杂志错落 */
+@media (min-width: 1024px) {
+  .highlights {
+    padding-block: var(--space-32);
+  }
+
+  .highlights__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    align-items: stretch; /* 每一行卡片高度自动拉伸对齐 */
+  }
+
+  /* 湖南大卡片：横跨两列，释放图片高度空间（240px~280px 区间），雕塑照片更舒展有气势 */
+  .city-card:nth-child(4) {
+    grid-column: span 2;
+  }
+
+  .city-card:nth-child(4) .city-card__image {
+    height: 260px;
+  }
+
+  /* 右下角湖北卡与湖南大卡片同排：margin-top 会造成高低错位，已移除 */
+}

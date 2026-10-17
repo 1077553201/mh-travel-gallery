@@ -1,0 +1,87 @@
+/* 移动优先：基础样式 = 手机（< 640px），足迹清单在段落下方 */
+.about {
+  padding-block: var(--space-16);
+  padding-inline: var(--page-pad);
+  border-top: 1px solid var(--color-line);
+}
+
+.about__label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.about__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-title);
+  margin-bottom: var(--space-8);
+}
+
+.about__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.about__text {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+/* 新拟态凹陷面板：足迹清单（地名横排从左往右） */
+.about__footprints {
+  list-style: none;
+  width: 100%;
+  background: var(--color-neu);
+  box-shadow: var(--shadow-neu-in);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
+}
+
+.about__footprints li {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+/* 平板（640px–1023px）：两栏，足迹清单变窄 */
+@media (min-width: 640px) {
+  .about__body {
+    flex-direction: row;
+    gap: var(--space-8);
+  }
+
+  .about__footprints {
+    width: auto;
+    min-width: 160px;
+  }
+}
+
+/* 桌面（≥ 1024px） */
+@media (min-width: 1024px) {
+  .about {
+    padding-block: var(--space-32);
+  }
+
+  .about__body {
+    gap: var(--space-12);
+  }
+
+  .about__footprints {
+    min-width: 200px;
+  }
+}

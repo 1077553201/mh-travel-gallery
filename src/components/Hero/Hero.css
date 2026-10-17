@@ -1,0 +1,176 @@
+/* 移动优先：基础样式 = 手机（< 640px）
+   Hero = 宣纸留白国风面板：左文案 + 右侧半座太和殿画卷（右缘融入背景）
+
+   文案策略（单一文字 DOM）：开机动画遮罩层不渲染文字，Hero 文字在开机期间
+   经 body.booting 提升层级高于遮罩；颜色用 color-mix 绑定 --bootReveal
+   （<html> 上由开机动画 JS 驱动 0→1）：深色虚空下为浅宣纸白/暖金，
+   宣纸浮现后过渡为深黛墨/鎏金 → 从第 0 秒到结束绝无位置或内容跳变。 */
+.hero {
+  position: relative;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-8);
+  padding-block: var(--space-16);
+  padding-inline: var(--page-pad);
+  overflow: hidden;
+  text-align: left; /* 文案始终左对齐 */
+  background: linear-gradient(160deg, var(--color-hero-paper-1) 0%, var(--color-hero-paper-2) 100%);
+}
+
+/* 右侧画卷：absolute 铺满，右白边渐隐融入宣纸背景（无模糊滤镜，全图锐利） */
+.hero__art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 72%, transparent 98%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 72%, transparent 98%);
+}
+.hero__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 62%; /* 手机：取宫殿主体偏下部分 */
+  user-select: none;
+}
+
+/* ---------- 文案：颜色随 --bootReveal 双态过渡（浅宣纸白 ↔ 深黛墨） ---------- */
+.hero__label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: color-mix(in srgb, var(--color-hero-label) calc(var(--bootReveal, 1) * 100%), #E8C97E);
+  transition: color 0.45s ease;
+  margin-bottom: var(--space-6);
+}
+
+/* clamp(44px, 8vw, 96px)：手机取最小档 44px，随视口平滑放大 */
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(44px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--color-hero-title) calc(var(--bootReveal, 1) * 100%), #F5F2EB);
+  transition: color 0.45s ease;
+  margin-bottom: var(--space-6);
+}
+
+.hero__subtitle {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--color-hero-text) calc(var(--bootReveal, 1) * 100%), #CBD5E1);
+  transition: color 0.45s ease;
+  margin-bottom: var(--space-8);
+}
+
+/* 手机：按钮与小字纵排，按钮全宽 */
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+/* 墨底宣纸字按钮：背景/描边同样随 --bootReveal 过渡（虚空期透底金边 → 宣纸期墨底） */
+.hero__btn {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  padding: var(--space-3) var(--space-8);
+  border: 1px solid color-mix(in srgb, rgba(255, 215, 130, 0.55) calc((1 - var(--bootReveal, 1)) * 100%), transparent);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-hero-btn-bg) calc(var(--bootReveal, 1) * 100%), rgba(255, 255, 255, 0.07));
+  color: var(--color-hero-btn-text);
+  cursor: pointer;
+  transition:
+    color 0.45s ease,
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    transform var(--dur-hover) var(--ease-smooth),
+    box-shadow var(--dur-hover) var(--ease-smooth);
+}
+
+.hero__note {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-hero-label) calc(var(--bootReveal, 1) * 100%), #E8C97E);
+  opacity: 0.72;
+  transition: color 0.45s ease;
+}
+
+/* 文案浮于画卷之上；开机期间提升到遮罩层（z-1000）之上 → 单一文字 DOM */
+.hero__main {
+  position: relative;
+  z-index: 1;
+}
+body.booting .hero__main {
+  z-index: 1001; /* 开机期间置顶于遮罩（1000）之上：单一文字 DOM */
+  /* 严禁 pointer-events: none ——「开始漫游 →」按钮在动画期间也必须可点击 */
+}
+
+/* hover 动效只在指针设备启用：上浮微动 + 鎏金光环 */
+@media (hover: hover) {
+  .hero__btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 28px rgba(27, 42, 78, 0.18),
+      0 0 0 1px rgba(201, 162, 39, 0.55);
+  }
+}
+
+/* 平板（640px–1023px） */
+@media (min-width: 640px) {
+  .hero__actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .hero__btn {
+    width: auto;
+  }
+}
+
+/* 桌面（≥ 1024px）：左文案 + 右侧画卷，内容限宽 1200px 居中 */
+@media (min-width: 1024px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    padding-inline: max(var(--page-pad), calc((100vw - 1200px) / 2));
+  }
+
+  /* 文案容器：脱离文档流居中限制，绝对定位钉死在屏幕左侧 6vw 纯净留白区
+     （不受 Flex 居中 / 1200px 居中容器影响；.hero 的 overflow:hidden 会裁剪，
+       故 z-index 1001 不会溢出到后续区块） */
+  .hero__main {
+    position: absolute;
+    left: 6vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: max-content;
+    max-width: 28vw;
+    margin: 0;
+    text-align: left;
+    z-index: 1001;
+  }
+
+  /* 太和殿画卷：锁定屏幕右侧 68vw，与开机动画 .boot__art 区域 100% 重合
+     左侧 0~8% 柔和过渡融入宣纸；最右侧必须 100% black——严禁右侧 transparent 羽化！ */
+  .hero__art {
+    width: 68vw;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+  }
+
+  .hero__art img {
+    object-position: left center; /* 宫殿在图片左侧，完整露出 */
+  }
+}

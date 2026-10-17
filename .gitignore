@@ -1,0 +1,20 @@
+﻿# 依赖目录
+node_modules/
+
+# 打包输出目录（如果需要在 Gitee/GitHub Pages 直接用 dist 部署，可删掉下面这行）
+dist/
+
+# 本地开发工具与编辑器缓存
+.workbuddy/
+.vscode/
+.idea/
+
+# 环境变量与日志文件
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store

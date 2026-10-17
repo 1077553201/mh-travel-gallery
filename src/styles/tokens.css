@@ -1,0 +1,63 @@
+:root {
+  /* 颜色 */
+  --color-primary: #FF5C35;        /* 主色·珊瑚橙 */
+  --color-primary-hover: #E8482A;  /* 主色悬停 */
+  --color-title: #1B2A4E;          /* 标题·墨蓝 */
+  --color-text: #4A5568;           /* 正文 */
+  --color-text-muted: #8A93A6;     /* 次要文字 */
+  --color-bg: #F4F2EE;             /* 页面背景·暖米灰 */
+  --color-glass: rgba(255,255,255,0.6);   /* 玻璃卡底 */
+  --color-neu: #E9E7E2;            /* 新拟态底 */
+  --color-line: rgba(27,42,78,0.14);      /* 细线 */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  /* Hero · 宣纸留白（国风鎏金，浅色） */
+  --color-hero-paper-1: #FBF8F1;  /* 宣纸·亮部 */
+  --color-hero-paper-2: #F1ECDF;  /* 宣纸·暗部 */
+  --color-hero-label: #A67C2E;    /* 眉标·鎏金 */
+  --color-hero-title: #1B2A4E;    /* 主标题·墨蓝 */
+  --color-hero-text: #55606F;     /* 文案·灰墨 */
+  --color-hero-btn-bg: #1B2A4E;   /* 按钮·墨底 */
+  --color-hero-btn-text: #F7F3EA; /* 按钮字·宣纸白 */
+  --color-hero-gold: #C9A227;     /* 鎏金点缀 */
+  /* 开机动画 · 流金绘影（鎏金线稿 + 流金粒子 + 画卷显影） */
+  --boot-ink-1: #1A2332;          /* 虚空墨黛·亮部 */
+  --boot-ink-2: #0A0E17;          /* 虚空墨黛·暗部 */
+  --boot-gold: #FFD782;           /* 鎏金青铜 */
+  --boot-gold-warm: #FFD700;      /* 飞檐暖金 */
+  --boot-jade: #E2E8F0;           /* 汉白玉冷白 */
+  --boot-paper: #F7F3EA;          /* 宣纸白 */
+  /* 开机动画时长 */
+  --dur-boot-reveal: 1800ms;      /* 画卷显影 */
+  --dur-boot-fade: 850ms;         /* 交叉溶解淡出 */
+  /* 五城专属色 */
+  --city-tianjin: #2E7CF6;   /* 天津·海河蓝 */
+  --city-leshan: #E8A33D;    /* 乐山·佛光金 */
+  --city-harbin: #22B8CF;    /* 哈尔滨·冰晶青 */
+  --city-hunan: #2FA36B;     /* 湖南·湘西翠 */
+  --city-hubei: #7C5CFF;     /* 湖北·武当紫 */
+  /* 间距（基数 8px） */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --space-24: 96px; --space-32: 128px;
+  /* 圆角 */
+  --radius-btn: 14px;
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-image: 24px;
+  --radius-tag: 8px;
+  /* 阴影 */
+  --shadow-glass: 0 8px 32px rgba(27,42,78,0.10);
+  --shadow-neu-out: 8px 8px 20px rgba(174,174,192,0.35), -8px -8px 20px rgba(255,255,255,0.95);
+  --shadow-neu-in: inset 6px 6px 12px rgba(174,174,192,0.40), inset -6px -6px 12px rgba(255,255,255,0.90);
+  --shadow-hover: 0 20px 44px rgba(255,92,53,0.22);
+  /* 字体 */
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-sans: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  /* 动效 */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-hover: 280ms;
+  --dur-reveal: 500ms;
+  --dur-sweep: 700ms;
+}

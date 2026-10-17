@@ -1,0 +1,146 @@
+/* 流金绘影 · 全屏开机动画遮罩层（国风鎏金）
+   文案策略：遮罩层不渲染任何文字 DOM——真实首页 Hero 文字层级高于遮罩，
+   颜色随 --bootReveal（在 <html> 上由 JS 驱动）经 color-mix 平滑过渡。 */
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  /* 阶段一背景：深邃东方墨黛 */
+  background: radial-gradient(circle at 30% 30%, var(--boot-ink-1) 0%, var(--boot-ink-2) 100%);
+  transition: opacity var(--dur-boot-fade) ease;
+}
+
+/* 阶段四：纯 opacity 交叉溶解（无模糊滤镜——下方 Hero 与遮罩层画面逐像素一致，
+   opacity 交叉溶解即无缝衔接，也杜绝任何“发虚”观感） */
+.boot--dissolve {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot__stage {
+  position: absolute;
+  inset: 0;
+  will-change: transform; /* 恒定 scale(1)：保持合成层，防止溶解时提升闪烁 */
+}
+
+/* 宣纸白背景层（阶段三由 JS 控制 opacity 0→1） */
+.boot__paper {
+  position: absolute;
+  inset: 0;
+  background: var(--boot-paper);
+  opacity: 0;
+}
+
+/* 右侧画卷容器：原图与鎏金线稿 Canvas 同容器、同 object-fit → 严格对齐
+   （移动端全幅铺底、右缘渐隐；桌面端锁定右侧 68vw，与首页 Hero 区域零像素对齐） */
+.boot__art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /* 原图右侧白边彻底融入背景（半座太和殿浮于虚空）；左侧不做过渡，保证建筑锐利 */
+  -webkit-mask-image: linear-gradient(to right, black 62%, transparent 97%);
+  mask-image: linear-gradient(to right, black 62%, transparent 97%);
+}
+
+.boot__img,
+.boot__edge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  user-select: none;
+}
+
+/* 原图：径向画卷显影（阶段三，--bootReveal 0→1；阶段一/二因 -30% 偏移完全隐藏） */
+.boot__img {
+  -webkit-mask-image: radial-gradient(
+    circle at 35% 35%,
+    black calc(var(--bootReveal, 0) * 130% - 30%),
+    transparent calc(var(--bootReveal, 0) * 130%)
+  );
+  mask-image: radial-gradient(
+    circle at 35% 35%,
+    black calc(var(--bootReveal, 0) * 130% - 30%),
+    transparent calc(var(--bootReveal, 0) * 130%)
+  );
+}
+
+/* 鎏金线稿：斜向遮罩从左上飞檐向右下阶梯刷出（--bootEdge 0→1）。
+   严禁任何 filter——线稿由 JS 按容器尺寸 × DPR 高清重采样，全程锐利。 */
+.boot__edge {
+  -webkit-mask-image: linear-gradient(
+    135deg,
+    black calc(var(--bootEdge, 0) * 130% - 30%),
+    transparent calc(var(--bootEdge, 0) * 130%)
+  );
+  mask-image: linear-gradient(
+    135deg,
+    black calc(var(--bootEdge, 0) * 130% - 30%),
+    transparent calc(var(--bootEdge, 0) * 130%)
+  );
+}
+
+/* 流光粒子层（全屏、lighter 光学叠加） */
+.boot__fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---------- 底部 HUD：呼吸提示 + 鎏金进度条 ---------- */
+.boot__hud {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 6vh, 56px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+.boot__hint {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: var(--color-hero-label); /* 深墨与宣纸上都可读的中性鎏金 */
+  animation: boot-breathe 2.6s ease-in-out infinite;
+}
+@keyframes boot-breathe {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.boot__track {
+  width: 180px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(166, 124, 46, 0.22);
+  overflow: hidden;
+}
+.boot__bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #d9b25c, #f3d98a);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* 桌面：太和殿画卷锁定屏幕右侧 68vw，与首页 Hero 的 .hero__art 区域 100% 重合
+   （同一 right/top/width/height + 同一 mask + 同一 object-position → 阶段四零跳变）
+   左侧 0~8% 柔和过渡融入宣纸；最右侧必须 100% black——严禁右侧 transparent 羽化！ */
+@media (min-width: 1024px) {
+  .boot__art {
+    width: 68vw;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+  }
+}

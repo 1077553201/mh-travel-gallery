@@ -1,0 +1,13 @@
+/* 滚动淡入：初始隐藏并下沉 24px，进入视口后 500ms 淡入归位 */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-reveal) ease-out,
+    transform var(--dur-reveal) ease-out;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}

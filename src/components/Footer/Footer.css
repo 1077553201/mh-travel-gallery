@@ -1,0 +1,27 @@
+/* 极简扁平：背景完全透明（移除原 #FBFCFD 白色底框），与页面底色自然融合、无边界沉浸过渡 */
+.footer {
+  padding-block: var(--space-8);
+  padding-inline: var(--page-pad);
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background: transparent;
+  text-align: center;
+}
+
+/* 联系方式一行（间隔 24px），手机放不下时自动换行 */
+.footer__contact {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-6);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.footer__copy {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
