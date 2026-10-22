@@ -20,7 +20,7 @@ export const studio = {
     { k: '成员构成', v: '24 级在校生' },
   ],
   github: 'https://github.com/1077553201',
-  email: 'mh11514@outlok.com',
+  email: 'mh111514@outlook.com',
 }
 
 // 主力成员：照片后续补，photo 留空则显示首字母图章
@@ -89,26 +89,8 @@ export const resources = [
 ]
 
 // 成果荣誉：按时间线倒序（最新的在前）
-// type: 'award' 竞赛奖项 / 'ip' 知识产权
+// 目前只保留四个代表性奖项，其余赛事记录待补
 export const achievements = [
-  {
-    date: '2026.09',
-    type: 'award',
-    title: '东莞市“强网杯”网络技能竞赛',
-    track: '数据安全赛项 · 学生组',
-    award: '二等奖',
-    level: '市级',
-    note: '个人赛：理论答题、CTF / 靶场实操与漏洞分析',
-  },
-  {
-    date: '2026.08',
-    type: 'award',
-    title: '第十五届“挑战杯”广东大学生创业计划竞赛',
-    track: '省赛',
-    award: '铜奖',
-    level: '省级',
-    note: '作品《元壤数脉——驱动农业高质量发展的全链路智能引擎平台》，负责全部技术工作',
-  },
   {
     date: '2026.07',
     type: 'award',
@@ -128,15 +110,6 @@ export const achievements = [
     note: '作品《双智臂——多模态双机械臂交互系统》，项目负责人',
   },
   {
-    date: '2026.05',
-    type: 'award',
-    title: '第十一届海峡两岸暨港澳地区大学生计算机创新作品赛',
-    track: '广东省赛 · 高职组',
-    award: '一等奖',
-    level: '省级',
-    note: '作品《双智臂——多模态双机械臂交互系统》，项目负责人',
-  },
-  {
     date: '2026.04',
     type: 'award',
     title: '2025-2026 学年广东省职业院校学生专业技能大赛',
@@ -146,15 +119,6 @@ export const achievements = [
     note: '组长带队，覆盖智能合约、链端部署、后端接口与前端业务联调',
   },
   {
-    date: '2026.04',
-    type: 'award',
-    title: '第十五届“挑战杯”广东大学生创业计划竞赛',
-    track: '校赛',
-    award: '铜奖',
-    level: '校级',
-    note: '作品《元壤数脉》，技术负责人',
-  },
-  {
     date: '2025.10',
     type: 'award',
     title: '一带一路暨金砖国家技能发展与技术创新大赛',
@@ -162,15 +126,6 @@ export const achievements = [
     award: '一等奖',
     level: '国家级',
     note: '组长 / 领队，完整走通 FISCO BCOS、WeBASE、Spring Boot、Vue 与 MySQL 全链路',
-  },
-  {
-    date: '进行中',
-    type: 'ip',
-    title: '计算机软件著作权',
-    track: '申请中',
-    award: '在申',
-    level: '知识产权',
-    note: '相关成果陆续补充',
   },
 ]
 

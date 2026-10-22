@@ -9,7 +9,7 @@ function Achievements() {
         <p className="achievements__label">04 — ACHIEVEMENTS</p>
         <h2 className="achievements__title">成果荣誉</h2>
         <p className="achievements__desc">
-          从 2025 年 10 月到 2026 年 9 月，工坊成员在区块链应用开发、大模型应用与数据安全赛项上持续拿奖。
+          从 2025 年 10 月到 2026 年 7 月，工坊成员在区块链应用开发、大模型应用与智能硬件方向持续拿奖，国家级奖项两项。
         </p>
       </Reveal>
 

@@ -2,7 +2,7 @@
    换图 / 调时间轴 / 调粒子规模，只改这里，不碰组件 */
 
 export const BOOT = {
-  imageSrc: '/library-dgpt.jpg', // 东莞职业技术学院图书馆实景（位于 public/ 下，断网可运行；可替换为任意精细描边建筑图）
+  imageSrc: '/gate-dgpt.jpg', // 东职校门校名墙实景（位于 public/ 下，断网可运行；可替换为任意精细描边建筑图）
   particleCount: 150,           // 精选流光数量（150 根发丝级丝线：单次清屏 + source-over，绝无过曝或圆点疙瘩）
   targetCount: 3200,            // 轮廓靶点候选上限（网格分桶后实际以每格 4 点均匀分布为准）
   edgeMaxDim: 1568,           // 线稿提取的最大边长（px，性能保护：原图等比缩到此尺寸内扫描）

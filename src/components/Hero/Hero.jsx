@@ -13,7 +13,7 @@ function Hero() {
     <header className="hero">
       {/* 右侧图书馆画卷：右缘融入宣纸白背景 */}
       <div className="hero__art">
-        <img src={BOOT.imageSrc} alt="东莞职业技术学院图书馆" draggable="false" />
+        <img src={BOOT.imageSrc} alt="东莞职业技术学院校名墙" draggable="false" />
       </div>
       <div className="hero__main">
         <p className="hero__label">
