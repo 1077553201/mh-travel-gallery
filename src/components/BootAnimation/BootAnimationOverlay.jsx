@@ -22,8 +22,8 @@ import './BootAnimationOverlay.css'
       只在最前端画唯一 1 个 1.3px 星点（3.2px 柔光）——绝不允许任何其他位置
       出现圆点。到达后彗尾随窗口收拢，1.15 倍进度内完全消失。
       靶点总数组创建后必须全局 Fisher-Yates 洗牌（杜绝按行 push 后前 N 个
-      全挤顶部的 Bug），且只采 u∈[0.18,0.96]、v∈[0.08,0.96] 的高梯度建筑
-      墨线区域，绝不落在空白天空。
+     全挤顶部的 Bug），且只采 BOOT.targetRegion 指定的高梯度建筑
+     墨线区域，绝不落在空白天空。
    3) 线稿显影（1.2 ~ 2.4s）：粒子基本锁定后，EdgeCanvas 才以斜向渐变遮罩
       从左上飞檐向右下阶梯刷出鎏金线稿；2.5s 起粒子原地化作微弱星尘渐隐。
    4) 阶段三 晨光破晓（2.0 ~ 3.8s）：原图 radial 遮罩从 35% 35% 晕染浮现，
@@ -45,16 +45,17 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v))
 const smooth = (v) => { const t = clamp01(v); return t * t * (3 - 2 * t) }
 
 /**
- * 通用 cover 映射：等价 CSS object-fit: cover; object-position: left center;
+ * 通用 cover 映射：等价 CSS object-fit: cover + object-position
  * 返回图像在容器中的绘制矩形 —— 线稿重采样、靶点映射共用同一套坐标，严禁各自为政。
+ * alignX/alignY：0=左/上，0.5=居中，1=右/下；必须与 BOOT.imageAlign 保持同源。
  */
 function getCoverRect(imgWidth, imgHeight, containerWidth, containerHeight) {
   const sc = Math.max(containerWidth / imgWidth, containerHeight / imgHeight)
   const drawW = imgWidth * sc
   const drawH = imgHeight * sc
   return {
-    drawX: 0, // left
-    drawY: (containerHeight - drawH) / 2, // center（垂直）
+    drawX: (containerWidth - drawW) * BOOT.imageAlign.x,
+    drawY: (containerHeight - drawH) * BOOT.imageAlign.y,
     drawW,
     drawH,
     sc,
@@ -237,12 +238,12 @@ function BootAnimationOverlay() {
       const thr = BOOT.edgeThreshold
       /* 24列 × 16行 网格分桶：每个有效网格随机抽取固定上限的靶点，
          保证飞檐/匾额/廊柱/石狮全殿等密度均匀覆盖（替代全局强度排序截断） */
-      const GW = 24
-      const GH = 16
+      const GW = BOOT.targetGrid.cols
+      const GH = BOOT.targetGrid.rows
       const cellW = imgW / GW
       const cellH = imgH / GH
-      const PER_CELL = 4
-      const CELL_KEEP = 48 // 每桶候选上限（控制内存）
+      const PER_CELL = BOOT.targetGrid.perCell
+      const CELL_KEEP = BOOT.targetGrid.cellKeep // 每桶候选上限（控制内存）
       const cells = Array.from({ length: GW * GH }, () => [])
 
       for (let y = 0; y < imgH - 1; y++) {
@@ -256,18 +257,18 @@ function BootAnimationOverlay() {
           // 鎏金配色：上部暖色飞檐 → 暖金；亮色汉白玉/留白 → 冷白；其余 → 青铜鎏金
           let col
           if (lum[i] > BOOT.marbleLum) col = JADE
-          else if (y < imgH * 0.42 && src[i * 4] > src[i * 4 + 2]) col = WARM
+          else if (y < imgH * BOOT.warmZoneRatio && src[i * 4] > src[i * 4 + 2]) col = WARM
           else col = GOLD
           const p4 = i * 4
           od[p4] = col[0]
           od[p4 + 1] = col[1]
           od[p4 + 2] = col[2]
           od[p4 + 3] = Math.round(alpha * 255)
-          // 靶点只采真正的建筑区域：u ∈ [0.18, 0.96]（跳过左侧纯空白）、
-          // v ∈ [0.08, 0.96]（飞檐到最底部台阶/香炉/石狮），且提高梯度阈值，
-          // 确保靶点 100% 落在太和殿建筑墨线上，绝不落在空白天空里
-          const inRegion = x >= imgW * 0.18 && x <= imgW * 0.96
-            && y >= imgH * 0.08 && y <= imgH * 0.96
+          // 靶点只采真正的建筑区域：u/v 范围由 BOOT.targetRegion 控制，
+          // 换图后主体位置不同只改配置，不动这段逻辑
+          const R = BOOT.targetRegion
+          const inRegion = x >= imgW * R.uMin && x <= imgW * R.uMax
+            && y >= imgH * R.vMin && y <= imgH * R.vMax
           if (inRegion && (g > thr * 1.8 || ink)) {
             const cx = Math.min(GW - 1, (x / cellW) | 0)
             const cy = Math.min(GH - 1, (y / cellH) | 0)
@@ -315,7 +316,7 @@ function BootAnimationOverlay() {
         debugTargets(targets)
         for (let i = 0; i < BOOT.particleCount; i++) {
           const tg = targets[i % targets.length]
-          const tx = Math.max(map.left + tg.u * map.drawW, W * 0.42) // 死守右半屏
+          const tx = Math.max(map.left + tg.u * map.drawW, W * BOOT.textZoneRight) // 死守右侧，保护左侧文字区
           const ty = map.top + tg.v * map.drawH
           const x = W * (1.02 + Math.random() * 0.08) // 出生点：右缘外 102% ~ 110%
           const y = ty + (Math.random() - 0.5) * 160    // 与靶点同高 ±80px
@@ -528,7 +529,13 @@ function BootAnimationOverlay() {
       <div className="boot__stage" ref={stageRef}>
         <div className="boot__paper" ref={paperRef} />
         <div className="boot__art" ref={artRef}>
-          <img className="boot__img" src={BOOT.imageSrc} alt="" draggable="false" />
+          <img
+            className="boot__img"
+            src={BOOT.imageSrc}
+            alt=""
+            draggable="false"
+            style={{ objectPosition: `${BOOT.imageAlign.x * 100}% ${BOOT.imageAlign.y * 100}%` }}
+          />
           <canvas className="boot__edge" ref={edgeRef} aria-hidden="true" />
         </div>
         <canvas className="boot__fx" ref={fxRef} aria-hidden="true" />

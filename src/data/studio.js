@@ -34,7 +34,7 @@ export const members = [
     lead: true,
     tags: ['Agent 开发', '全栈开发', '软硬件结合研发', '区块链部署与运维'],
     note: '新疆喀什 · 维吾尔族 · 专业排名前 1%',
-    photo: '',
+    photo: '/photos/muhetaer.jpg',
   },
   {
     id: 'liangyuying',

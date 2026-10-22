@@ -11,9 +11,14 @@ function Hero() {
 
   return (
     <header className="hero">
-      {/* 右侧图书馆画卷：右缘融入宣纸白背景 */}
+      {/* 右侧画卷：右缘融入宣纸白背景；对齐方式与开机遮罩同源，改 bootConfig 即可 */}
       <div className="hero__art">
-        <img src={BOOT.imageSrc} alt="东莞职业技术学院校名墙" draggable="false" />
+        <img
+          src={BOOT.imageSrc}
+          alt="东莞职业技术学院校名墙"
+          draggable="false"
+          style={{ objectPosition: `${BOOT.imageAlign.x * 100}% ${BOOT.imageAlign.y * 100}%` }}
+        />
       </div>
       <div className="hero__main">
         <p className="hero__label">

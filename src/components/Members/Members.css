@@ -68,9 +68,11 @@
 }
 
 /* ---------- 头像区 ---------- */
+/* 4:5 竖版比例：人像照片的通用裁剪比，配 object-position: center 22%
+   保证脸始终在上三分之二，不会被拉成横条 */
 .member-card__avatar {
   position: relative;
-  height: 190px;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,6 +100,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 22%;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -250,9 +253,5 @@
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-8);
     align-items: stretch;
-  }
-
-  .member-card__avatar {
-    height: 210px;
   }
 }

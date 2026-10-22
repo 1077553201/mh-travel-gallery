@@ -35,16 +35,17 @@
 }
 
 /* 右侧画卷容器：原图与鎏金线稿 Canvas 同容器、同 object-fit → 严格对齐
-   （移动端全幅铺底、右缘渐隐；桌面端锁定右侧 68vw，与首页 Hero 区域零像素对齐） */
+   遮罩方向在手机与桌面都必须与首页 .hero__art 完全一致，
+   否则阶段四交叉溶解时会出现可见位移（对象位置由 bootConfig.imageAlign 统一注入） */
 .boot__art {
   position: absolute;
   top: 0;
   right: 0;
   width: 100%;
   height: 100%;
-  /* 原图右侧白边彻底融入背景（半座太和殿浮于虚空）；左侧不做过渡，保证建筑锐利 */
-  -webkit-mask-image: linear-gradient(to right, black 62%, transparent 97%);
-  mask-image: linear-gradient(to right, black 62%, transparent 97%);
+  /* 左侧 0~8% 柔和过渡融入宣纸；最右侧必须 100% black——严禁右侧 transparent 羽化！ */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
 }
 
 .boot__img,
@@ -54,7 +55,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left center;
   user-select: none;
 }
 
@@ -135,12 +135,9 @@
 }
 
 /* 桌面：太和殿画卷锁定屏幕右侧 68vw，与首页 Hero 的 .hero__art 区域 100% 重合
-   （同一 right/top/width/height + 同一 mask + 同一 object-position → 阶段四零跳变）
-   左侧 0~8% 柔和过渡融入宣纸；最右侧必须 100% black——严禁右侧 transparent 羽化！ */
+   （同一 right/top/width/height + 同一 mask + 同一对齐 → 阶段四零跳变） */
 @media (min-width: 1024px) {
   .boot__art {
     width: 68vw;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
   }
 }
