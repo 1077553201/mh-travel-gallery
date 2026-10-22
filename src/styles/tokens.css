@@ -31,12 +31,10 @@
   /* 开机动画时长 */
   --dur-boot-reveal: 1800ms;      /* 画卷显影 */
   --dur-boot-fade: 850ms;         /* 交叉溶解淡出 */
-  /* 五城专属色 */
-  --city-tianjin: #2E7CF6;   /* 天津·海河蓝 */
-  --city-leshan: #E8A33D;    /* 乐山·佛光金 */
-  --city-harbin: #22B8CF;    /* 哈尔滨·冰晶青 */
-  --city-hunan: #2FA36B;     /* 湖南·湘西翠 */
-  --city-hubei: #7C5CFF;     /* 湖北·武当紫 */
+  /* 工坊点缀色：与鎏金/墨黛/宣纸同源，用于卡片小标签、hover 发光、背景光斑 */
+  --color-jade: #2FA36B;     /* 青绿·链上生机 */
+  --color-ink: #1B2A4E;      /* 墨蓝·与标题同色 */
+  --color-bronze: #C9A227;   /* 鎏金·与 --color-hero-gold 同源 */
   /* 间距（基数 8px） */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;

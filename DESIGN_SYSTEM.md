@@ -1,4 +1,4 @@
-# 旅游画廊 · 设计系统（DESIGN SYSTEM)
+# 区块链工坊 · 设计系统（DESIGN SYSTEM)
 
 > 所有数值与代码完全一致，定义见 [src/styles/tokens.css](./src/styles/tokens.css)。
 > 组件样式只允许引用这些令牌（`var(--xxx)`），禁止硬编码色值。
@@ -9,7 +9,7 @@
 |---|---|---|
 | `--color-primary` | `#FF5C35` 珊瑚橙 | 主按钮文字、罗盘指北针、强调元素 |
 | `--color-primary-hover` | `#E8482A` | 按钮 hover 时的文字色 |
-| `--color-title` | `#1B2A4E` 墨蓝 | H1/H2/H3 标题、卡片城市名 |
+| `--color-title` | `#1B2A4E` 墨蓝 | H1/H2/H3 标题、卡片成员名 |
 | `--color-text` | `#4A5568` | 正文段落、卡片 slogan |
 | `--color-text-muted` | `#8A93A6` | 栏目标签、辅助小字、页脚文字 |
 | `--color-bg` | `#F4F2EE` 暖米灰 | 页面背景底色 |
@@ -20,17 +20,15 @@
 | `--color-warning` | `#F59E0B` | 警告状态提示（预留） |
 | `--color-error` | `#EF4444` | 错误状态提示（预留） |
 
-五城专属色（卡片小标签底色、hover 发光、渐变图案底）：
+工坊点缀色（页面背景光斑、hover 发光、辅助强调）：
 
-| 令牌 | 值 | 城市 | 用在哪 |
-|---|---|---|---|
-| `--city-tianjin` | `#2E7CF6` 海河蓝 | 天津 | 标签底、hover 发光 |
-| `--city-leshan` | `#E8A33D` 佛光金 | 乐山 | 标签底、hover 发光 |
-| `--city-harbin` | `#22B8CF` 冰晶青 | 哈尔滨 | 标签底、hover 发光 |
-| `--city-hunan` | `#2FA36B` 湘西翠 | 湖南 | 标签底、hover 发光 |
-| `--city-hubei` | `#7C5CFF` 武当紫 | 湖北 | 标签底、hover 发光 |
+| 令牌 | 值 | 用在哪 |
+|---|---|---|
+| `--color-jade` | `#2FA36B` 青绿 | 背景光斑、辅助强调 |
+| `--color-ink` | `#1B2A4E` 墨蓝 | 背景光斑（与 `--color-title` 同色） |
+| `--color-bronze` | `#C9A227` 鎏金 | 与 `--color-hero-gold` 同源，光斑与点缀 |
 
-约定例外（不计入"禁止硬编码"）：玻璃卡描边 `1px solid rgba(255,255,255,0.8)`；页面背景光斑为五城色的低透明度 `rgba()`；按钮高光条 `rgba(255,255,255,0.55)`。
+约定例外（不计入"禁止硬编码"）：玻璃卡描边 `1px solid rgba(255,255,255,0.8)`；页面背景光斑为点缀色的低透明度 `rgba()`；按钮高光条 `rgba(255,255,255,0.55)`。
 
 ## 2. 间距
 

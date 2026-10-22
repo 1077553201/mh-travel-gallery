@@ -1,22 +1,24 @@
-# 旅游画廊 Travel Gallery
+# 区块链工坊 Blockchain Workshop
 
-五座城市的旅行画廊——一个纯前端 React 练习项目，把走过的风景做成一页会呼吸的杂志：开屏是「流金绘影 · 半座太和殿」金色丝线汇入宫殿的全屏动画，落版为左文右画的宣纸留白首页。
+东莞职业技术学院 · 人工智能学院 · 区块链技术应用专业的工作室宣传主页。
+
+开屏是「流金绘影」全屏动画——150 根发丝级金色丝线从屏幕右缘汇入校名墙，线稿显影后溶入宣纸留白首页；向下是工坊简介、主力成员、资源与平台、成果荣誉与加入我们。
 
 ## 项目亮点
 
-- **开机动画「流金绘影」**：150 根发丝级极细流光丝线（最大半径仅 0.85px、头部唯一星点），从屏幕右缘外汇入右侧太和殿——每帧整屏强制清屏 + 纯函数曲线求值，零 history、零多步循环、零过曝；粒子靶点按 24×16 网格分桶均匀采样并全局洗牌，飞檐到台阶全殿覆盖
-- **零跳变移交**：开机动画与首页 Hero 的太和殿渲染盒逐像素重合（同一 68vw 右锁容器 + 同一 mask + 同一 cover 映射）；全站只有**一个文字 DOM**（`color-mix` 随 `--bootReveal` 由浅宣纸白过渡到深黛墨），绝无位置跳变
-- **鎏金线稿提取**：对 `taihedian.jpg` 离屏 Canvas 逐像素亮度梯度扫描，生成暖金/青铜/汉白玉三色线稿，与 `<img>` 共用 `getCoverRect` cover 映射 + DPR 高清重采样，0 像素误差
-- **三种风格融合**：杂志风骨架（超大衬线标题、1px 细线、大留白）+ 玻璃拟态卡片（`backdrop-filter: blur(16px)` + 白描边）+ 新拟态点睛，页面背景叠五城色柔光斑
-- **动效全家桶**（纯 CSS + 原生 JS，无动画库）：悬停抬升/发光/图片放大 1.08（0.4s）、滚动淡入（500ms 错开 80ms）、按钮高光扫过（700ms）
-- **响应式**：移动优先，640px / 1024px 两断点；桌面 3 列网格 `align-items: stretch` + flex 列等高对齐，湖南宽卡（span 2）图片 260px
-- **零外链素材**：太和殿大图 + CSS 渐变/SVG 兜底，断网完整；照片丢进 `public/photos/` 即自动替换
+- **开机动画「流金绘影」**：对主视觉图做离屏 Canvas 亮度梯度扫描提取鎏金线稿，150 根极细流光丝线（最大半径 0.85px、头部唯一星点）从屏幕右缘汇入建筑——每帧整屏强制清屏 + 纯函数曲线求值，零 history、零多步循环、零过曝
+- **零跳变移交**：开机动画与首页 Hero 的渲染盒逐像素重合（同一 68vw 右锁容器 + 同一 mask + 同一对齐映射）；全站只有**一个文字 DOM**（`color-mix` 随 `--bootReveal` 由浅宣纸白过渡到深黛墨），手机与桌面都不跳变
+- **鎏金线稿提取**：逐像素亮度梯度 + 深色墨线双判据，生成暖金/青铜/汉白玉三色线稿；靶点按 24×16 网格分桶均匀采样并全局洗牌，建筑全覆盖
+- **换图只改一处**：图片路径、对齐、暖金分区、靶点采样区、文字保护线全部集中在 `src/data/bootConfig.js`
+- **三种风格融合**：杂志风骨架（超大衬线标题、1px 细线、大留白）+ 玻璃拟态卡片 + 新拟态点睛
+- **纯 CSS + 原生 JS**：无 UI 库、无动画库、无 Tailwind
+- **响应式**：移动优先，640px / 1024px 两断点
 
 ## 技术栈
 
-- React 18+（本项目 19.2）
-- Vite
-- 纯 CSS（CSS 变量设计令牌、Grid / Flex、`clamp()`、`color-mix()`、媒体查询；**无 UI 库、无动画库、无 Tailwind**）
+- React 19.2
+- Vite 8
+- 纯 CSS（CSS 变量设计令牌、Grid / Flex、`clamp()`、`color-mix()`、媒体查询）
 
 ## 本地运行
 
@@ -32,61 +34,59 @@ npm run preview # 本地预览构建产物
 ## 目录结构
 
 ```
-03travel-gallery/
 ├── index.html
-├── README.md               # 本文件
 ├── DESIGN_SYSTEM.md        # 设计规范（颜色/间距/圆角/阴影/字体/动效）
-├── docs/
-│   └── STAGE_PROMPTS.md    # 分阶段提示词（阶段0~9课程主线 + 阶段10~13后加进阶）
+├── docs/                   # 原始课程计划与分阶段提示词（历史资料）
 ├── public/
-│   ├── taihedian.jpg       # 太和殿大图（开机动画 + Hero 右侧画卷）
-│   └── photos/             # 自己的照片放这里（内附说明）
+│   ├── gate-dgpt.jpg       # 主视觉：东职校名墙（开机动画 + Hero 共用）
+│   └── photos/             # 成员照片放这里（内附替换说明）
 └── src/
     ├── data/
-    │   ├── cities.js       # 五城真实旅行文案与数据
-    │   └── bootConfig.js   # 开机动画配置（时间轴/粒子规模/边缘阈值）
+    │   ├── studio.js       # 工坊全部内容：简介/成员/资源/成果/联系方式
+    │   └── bootConfig.js   # 开机动画配置：图片/对齐/阈值/时间轴
     ├── styles/
     │   ├── tokens.css      # 设计令牌（CSS 变量）
     │   └── global.css      # 全局重置与页面光斑背景
     ├── components/
     │   ├── BootAnimation/  # 开机动画遮罩（边缘扫描 + 极细丝线 + 溶解移交）
-    │   ├── Hero/           # 主视觉（左文右殿 · 单一文字 DOM）
-    │   ├── Highlights/     # 目的地卡片列表（等高网格 + Hover 放大）
-    │   ├── About/          # 介绍与足迹清单
-    │   ├── Footer/         # 页脚（透明背景无缝融合）
-    │   ├── CityArt/        # 五城 SVG 图案（无照片时的默认视觉）
+    │   ├── Hero/           # 主视觉（左文右画 · 单一文字 DOM）
+    │   ├── About/          # 关于工坊
+    │   ├── Members/        # 主力成员卡片（缺图回退为首字图章）
+    │   ├── Resources/      # 资源与平台
+    │   ├── Achievements/   # 成果荣誉（时间线）
+    │   ├── Join/           # 加入我们
+    │   ├── Footer/         # 页脚
     │   └── Reveal.jsx      # 滚动淡入通用组件（IntersectionObserver）
-    ├── App.jsx
     └── main.jsx
 ```
 
-## 截图
+## 改内容
 
-> 📁 **把所有截图放进项目根目录的 `screenshots/` 文件夹**（没有就新建一个），文件名必须与下面完全一致，README 才能自动显示：
+所有文案集中在 **`src/data/studio.js`**，改文字不用碰组件：
 
-| 放这个文件 | 截什么 | 怎么截 |
-| --- | --- | --- |
-| `screenshots/boot-animation.gif` | 开机动画过程 | 录屏 5 秒（动画全程约 4.7s），转成 gif；嫌麻烦可换成 `boot-particles.png` 冻帧 |
-| `screenshots/boot-particles.png` | 金色丝线汇入太和殿 | 访问 `http://localhost:5173/?boott=2.2`，等冻结帧渲染后截图（桌面 1280px+ 宽度） |
-| `screenshots/hero.png` | 首页 Hero 最终态 | 动画播完（或 `?noboot`），显示「旅游画廊」标题 + 右侧太和殿 + 底部页脚以上的首屏 |
-| `screenshots/highlights.png` | 五城卡片桌面全景 | 滚到「目的地」区块，3 列卡片 + 湖南宽卡完整入镜 |
-| `screenshots/card-hover.png` | 卡片 Hover 放大 | 鼠标悬停任意卡片（如「哈尔滨 · 雪国童话」），图片放大 1.08 时截图 |
-| `screenshots/about-footer.png` | 关于画廊 + 页脚 | 滚到页面底部，About 段落与透明页脚（联系方式 + 版权行）一起截 |
-| `screenshots/mobile.png` | 移动端整页 | 浏览器 DevTools 设备模拟 375px，整页截长图 |
+| 字段 | 用途 |
+| --- | --- |
+| `studio` | 工坊名称、学院、指导老师、简介、GitHub、邮箱 |
+| `members` | 主力成员；`photo` 留空时显示姓氏图章 |
+| `resources` | 资源与平台分组 |
+| `achievements` | 成果荣誉时间线（倒序） |
+| `stack` | 技术栈标签 |
 
-本人因为偷懒所以没有做以上的gif和png，实在报一丝
+## 换主视觉图
 
-<img width="480" height="287" alt="屏幕录制 2026-10-17 142603" src="https://github.com/user-attachments/assets/8d7f2104-8b72-428f-9928-e27fda1ab679" />
+换图后先用预检脚本跑一遍，避免改完代码才发现线稿糊成一片：
 
+```bash
+python edge_preview.py 新图.jpg
+```
 
-## 设计说明
+线稿密度 0.30~0.55 为正常区间，超过 0.85 说明噪点过多（夜景、天空渐变、画面带文字的图都会翻车）。
+构图要求：建筑主体偏左、右侧留干净天空/留白，比例接近 1.05~1.15 可避免 cover 裁切主体。
 
-颜色、间距、圆角、阴影、字体与动效的具体数值见 [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)；组件样式统一引用 `src/styles/tokens.css` 中的 CSS 变量；开机动画的渲染管线与配置说明见 [docs/STAGE_PROMPTS.md](./docs/STAGE_PROMPTS.md) 进阶阶段。
+## 部署
 
-## 学习笔记
-
-第一次把一个页面从头拆成组件：数据放 `data/`、结构放 JSX、样式跟着组件文件走，改哪一块一目了然。React 的状态与 `key` 让我明白"界面是数据的映射"，列表变了 UI 自己跟着变。封装 `Reveal` 时踩过监听器泄漏的坑，才真正理解 `useEffect` 的清理函数为什么必须写。后来给画廊加开机动画，又学会了用 Canvas 纯函数渲染代替状态累积——每帧从零算出一整帧，比维护一堆历史状态干净得多。
+Cloudflare Pages：构建命令 `npm run build`，输出目录 `dist`，环境变量 `NODE_VERSION=22`。
 
 ## 版权
 
-© 2026 旅游画廊 Travel Gallery · 用脚步丈量世界
+© 2026 区块链工坊 Blockchain Workshop · 东莞职业技术学院人工智能学院
