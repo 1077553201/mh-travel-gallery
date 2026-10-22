@@ -1,0 +1,191 @@
+/* 移动优先：时间线单列，日期在上方 */
+.achievements {
+  padding-block: var(--space-16);
+  padding-inline: var(--page-pad);
+  border-top: 1px solid var(--color-line);
+}
+
+.achievements__label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.achievements__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-title);
+  margin-bottom: var(--space-3);
+}
+
+.achievements__desc {
+  font-size: 16px;
+  color: var(--color-text);
+  max-width: 54ch;
+  margin-bottom: var(--space-8);
+}
+
+/* ---------- 时间线 ---------- */
+.timeline {
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  padding-left: 22px;
+}
+
+/* 竖轴线 */
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  bottom: -24px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-hero-gold) 70%, transparent),
+    var(--color-line)
+  );
+}
+
+.timeline__item:last-child::before {
+  display: none;
+}
+
+.timeline__marker {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-hero-paper-1);
+  border: 2px solid var(--color-hero-gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-hero-gold) 12%, transparent);
+}
+
+.timeline__date {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--color-hero-label);
+}
+
+.timeline__body {
+  padding-bottom: var(--space-6);
+  border-bottom: 1px dashed var(--color-line);
+}
+
+.timeline__item:last-child .timeline__body {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.timeline__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+/* 级别徽标：国家级用鎏金实底，其余用描边，克制而可区分 */
+.timeline__level {
+  flex: 0 0 auto;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: var(--radius-tag);
+  border: 1px solid color-mix(in srgb, var(--color-hero-label) 40%, transparent);
+  color: var(--color-hero-label);
+  background: transparent;
+  white-space: nowrap;
+}
+
+/* 国家级奖项强调：金底深字，一眼看到最高规格 */
+.timeline__level[data-level='国家级'] {
+  background: linear-gradient(135deg, #f7dfa4, var(--color-hero-gold));
+  border-color: transparent;
+  color: #3d2f0a;
+  font-weight: 600;
+}
+
+/* 在申软著：虚线描边，表示未落定 */
+.timeline__level[data-level='知识产权'] {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  border-color: var(--color-line);
+}
+
+.timeline__title {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-title);
+}
+
+/* 奖项名：朱红，与全站主色呼应（中式奖状观感） */
+.timeline__award {
+  flex: 0 0 auto;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.timeline__track {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  letter-spacing: 0.02em;
+}
+
+.timeline__note {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-top: var(--space-2);
+}
+
+/* 平板起：日期独占左栏，内容在右 */
+@media (min-width: 640px) {
+  .timeline__item {
+    grid-template-columns: 96px 1fr;
+    padding-left: 22px;
+    gap: var(--space-6);
+  }
+
+  .timeline__date {
+    padding-top: 4px;
+    text-align: left;
+  }
+}
+
+/* 桌面 */
+@media (min-width: 1024px) {
+  .achievements {
+    padding-block: var(--space-32);
+  }
+
+  .timeline__item {
+    grid-template-columns: 120px 1fr;
+  }
+
+  .timeline__title {
+    font-size: 21px;
+  }
+}

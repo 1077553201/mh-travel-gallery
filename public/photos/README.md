@@ -1,8 +1,19 @@
-# 换成自己的照片（不用改任何代码）
+# 成员照片放置说明
 
-1. 把照片命名：tianjin.jpg / leshan.jpg / harbin.jpg / hunan.jpg / hubei.jpg
-2. 复制到本目录（public/photos/）
-3. 刷新页面——卡片会自动检测到照片并替换默认图案
+把成员照片放进这个目录，文件名与 `src/data/studio.js` 里 `members` 的 `id` 保持一致：
 
-不放照片时，卡片显示渐变 + SVG 图案，页面同样完整好看。
-建议：JPG 格式，宽 800px 以上，横构图（约 4:3）。
+| 文件名 | 对应成员 |
+| --- | --- |
+| `muhetaer.jpg` | 木合塔尔（负责人） |
+| `liangyuying.jpg` | 梁玉莹 |
+| `zhengyilun.jpg` | 郑益伦 |
+
+然后在 `src/data/studio.js` 里把该成员的 `photo` 字段填上路径：
+
+```js
+photo: '/photos/muhetaer.jpg',
+```
+
+`photo` 留空时，卡片显示该成员姓氏的大号衬线图章，不会出现破图。
+
+建议：竖版或方形，短边 ≥ 600px，单张 ≤ 300KB（jpg 质量 85 导出即可）。

@@ -1,7 +1,0 @@
-/* SVG 图案铺满卡片图区，随容器缩放 */
-.city-art {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}

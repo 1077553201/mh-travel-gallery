@@ -1,0 +1,258 @@
+/* 移动优先：基础样式 = 手机（< 640px），成员卡片单列 */
+.members {
+  padding-block: var(--space-16);
+  padding-inline: var(--page-pad);
+  border-top: 1px solid var(--color-line);
+}
+
+.members__label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.members__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-title);
+  margin-bottom: var(--space-3);
+}
+
+.members__desc {
+  font-size: 16px;
+  color: var(--color-text);
+  max-width: 46ch;
+  margin-bottom: var(--space-8);
+}
+
+.members__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+/* 玻璃拟态卡片：与全站语言一致（半透明底 + 模糊 + 白描边） */
+.member-card {
+  position: relative;
+  height: 100%;
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-glass);
+  overflow: hidden;
+  transition:
+    transform var(--dur-hover) var(--ease-smooth),
+    box-shadow var(--dur-hover) var(--ease-smooth),
+    border-color var(--dur-hover) var(--ease-smooth);
+}
+
+/* 负责人：顶部鎏金细线 + 更强阴影，视觉上先声夺人 */
+.member-card--lead {
+  border-color: color-mix(in srgb, var(--color-hero-gold) 45%, white);
+}
+
+.member-card--lead::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-hero-gold), #f3d98a, var(--color-hero-gold));
+  z-index: 2;
+}
+
+/* ---------- 头像区 ---------- */
+.member-card__avatar {
+  position: relative;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 215, 130, 0.28), transparent 70%),
+    linear-gradient(160deg, var(--color-hero-paper-1), var(--color-hero-paper-2));
+  border-bottom: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+/* 无照片时的姓氏图章：大号衬线字，鎏金描边 */
+.member-card__monogram {
+  font-family: var(--font-serif);
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-hero-gold) 82%, var(--color-title));
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.7);
+  transition: transform var(--dur-hover) var(--ease-smooth);
+}
+
+.member-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.member-card__badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  color: #3d2f0a;
+  background: linear-gradient(135deg, #f7dfa4, var(--color-hero-gold));
+  box-shadow: 0 4px 12px rgba(166, 124, 46, 0.28);
+}
+
+/* ---------- 文字区 ---------- */
+.member-card__body {
+  padding: var(--space-6);
+}
+
+.member-card__name {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-title);
+  line-height: 1.3;
+}
+
+.member-card__grade {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.member-card__role {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--color-hero-label);
+  margin-top: 2px;
+  margin-bottom: var(--space-4);
+}
+
+.member-card__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.member-card__tags li {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 3px 10px;
+  border-radius: var(--radius-tag);
+  color: var(--color-title);
+  background: color-mix(in srgb, var(--color-title) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-title) 12%, transparent);
+}
+
+.member-card__note {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-line);
+}
+
+/* ---------- 悬停 ---------- */
+.member-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-glass), 0 18px 40px rgba(166, 124, 46, 0.18);
+  border-color: var(--color-hero-gold);
+}
+
+.member-card:focus-visible .member-card__monogram,
+.member-card:focus-visible .member-card__photo {
+  transform: scale(1.06);
+}
+
+@media (hover: hover) {
+  .member-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-glass), 0 18px 40px rgba(166, 124, 46, 0.18);
+    border-color: var(--color-hero-gold);
+  }
+
+  .member-card:hover .member-card__monogram,
+  .member-card:hover .member-card__photo {
+    transform: scale(1.06);
+  }
+}
+
+/* ---------- 技术栈 ---------- */
+.members__stack {
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+}
+
+.members__stack-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.members__stack-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.members__stack-list li {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--color-line);
+}
+
+/* 平板（640px–1023px）：两列 */
+@media (min-width: 640px) {
+  .members__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* 桌面（≥ 1024px）：三列等高 */
+@media (min-width: 1024px) {
+  .members {
+    padding-block: var(--space-32);
+  }
+
+  .members__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    align-items: stretch;
+  }
+
+  .member-card__avatar {
+    height: 210px;
+  }
+}

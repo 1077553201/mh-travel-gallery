@@ -51,10 +51,11 @@
   margin-bottom: var(--space-6);
 }
 
-/* clamp(44px, 8vw, 96px)：手机取最小档 44px，随视口平滑放大 */
+/* clamp(40px, 5.4vw, 84px)：5 字标题在桌面 28vw 文案区内不换行
+   （8vw 时 5×96px=480px 会超出 403px 的可用宽度，故按 5 字重新收敛） */
 .hero__title {
   font-family: var(--font-serif);
-  font-size: clamp(44px, 8vw, 96px);
+  font-size: clamp(40px, 5.4vw, 84px);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;

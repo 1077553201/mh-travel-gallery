@@ -80,14 +80,18 @@ a:hover {
     transform: none;
   }
 
-  .city-card:hover,
-  .city-card:focus-visible,
+  .member-card:hover,
+  .member-card:focus-visible,
+  .resource-card:hover,
+  .join__card:hover,
   .hero__btn:hover {
     transform: none;
   }
 
-  .city-card:hover .city-card__image-fill,
-  .city-card:focus-visible .city-card__image-fill {
+  .member-card:hover .member-card__monogram,
+  .member-card:hover .member-card__photo,
+  .member-card:focus-visible .member-card__monogram,
+  .member-card:focus-visible .member-card__photo {
     transform: none;
   }
 

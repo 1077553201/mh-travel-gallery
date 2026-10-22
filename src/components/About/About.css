@@ -1,4 +1,4 @@
-/* 移动优先：基础样式 = 手机（< 640px），足迹清单在段落下方 */
+/* 移动优先：基础样式 = 手机（< 640px），事实清单在段落下方 */
 .about {
   padding-block: var(--space-16);
   padding-inline: var(--page-pad);
@@ -34,12 +34,16 @@
   font-family: var(--font-sans);
   font-size: 17px;
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--color-text);
 }
 
-/* 新拟态凹陷面板：足迹清单（地名横排从左往右） */
-.about__footprints {
+.about__text p + p {
+  margin-top: var(--space-4);
+}
+
+/* 新拟态凹陷面板：工坊事实清单（键值成对竖排） */
+.about__facts {
   list-style: none;
   width: 100%;
   background: var(--color-neu);
@@ -47,27 +51,43 @@
   border-radius: var(--radius-card);
   padding: var(--space-6);
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-6);
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-.about__footprints li {
+.about__facts li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
   font-family: var(--font-sans);
   font-size: 15px;
-  color: var(--color-text);
+  line-height: 1.6;
 }
 
-/* 平板（640px–1023px）：两栏，足迹清单变窄 */
+.about__facts-k {
+  flex: 0 0 auto;
+  min-width: 5.5em;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.about__facts-v {
+  color: var(--color-title);
+  font-weight: 500;
+}
+
+/* 平板（640px–1023px）：两栏，事实面板变窄 */
 @media (min-width: 640px) {
   .about__body {
     flex-direction: row;
     gap: var(--space-8);
   }
 
-  .about__footprints {
+  .about__facts {
     width: auto;
-    min-width: 160px;
+    min-width: 220px;
+    align-self: flex-start;
   }
 }
 
@@ -81,7 +101,7 @@
     gap: var(--space-12);
   }
 
-  .about__footprints {
-    min-width: 200px;
+  .about__facts {
+    min-width: 280px;
   }
 }
